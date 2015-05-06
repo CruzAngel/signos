@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="Fecha">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="fecha" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FechaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FechaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="FechaSoapIn">
+    <wsdl:part name="parameters" element="tns:Fecha" />
+  </wsdl:message>
+  <wsdl:message name="FechaSoapOut">
+    <wsdl:part name="parameters" element="tns:FechaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ZodiacoWebServiceSoap">
+    <wsdl:operation name="Fecha">
+      <wsdl:input message="tns:FechaSoapIn" />
+      <wsdl:output message="tns:FechaSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ZodiacoWebServiceSoap" type="tns:ZodiacoWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Fecha">
+      <soap:operation soapAction="http://tempuri.org/Fecha" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ZodiacoWebServiceSoap12" type="tns:ZodiacoWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Fecha">
+      <soap12:operation soapAction="http://tempuri.org/Fecha" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ZodiacoWebService">
+    <wsdl:port name="ZodiacoWebServiceSoap" binding="tns:ZodiacoWebServiceSoap">
+      <soap:address location="http://localhost:1535/ZodiacoWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ZodiacoWebServiceSoap12" binding="tns:ZodiacoWebServiceSoap12">
+      <soap12:address location="http://localhost:1535/ZodiacoWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
